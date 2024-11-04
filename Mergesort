@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+using namespace std;
+class mergesort
+{
+	public:
+	void merge_sort(int arr[],int low,int high,int n)
+	{
+		if(low>=high)
+		return;
+		int mid=(low+high)/2;
+		merge_sort(arr,low,mid,n);
+		merge_sort(arr,mid+1,high,n);
+		merge(arr,low,mid,high,n);
+	}
+	void merge(int arr[],int low,int mid,int high,int n)
+	{
+		int left=low;
+		int right=mid+1;
+		int k=0;
+		int temp[n];
+		while(left<=mid && right<=high)
+		{
+			if(arr[left]<=arr[right])
+			{
+			    temp[k]=arr[left];
+				left++;
+				k++;
+			}
+			else
+			{
+				temp[k]=arr[right];
+				right++;
+				k++;
+			}
+		}
+		while(left<=mid)
+		{
+			temp[k]=arr[left];
+			left++;
+			k++;
+		}
+		while(right<=high)
+		{
+			temp[k]=arr[right];
+			right++;
+			k++;
+		}
+		for(int i=0;i<k;i++)
+		{
+			arr[i+low]=temp[i];
+		}	
+		}
+	
+ }; 
+ 
+ void printarray(int arr[],int n)
+	{
+		for(int i=0;i<n;i++)
+		{
+			cout<<arr[i]<<" ";
+		}
+		cout<<endl;
+	}
+int main()
+{
+	cout<<"Enter the number of elements you want in the array"<<endl;
+	int n;
+	cin>>n;
+	int arr[n];
+	cout<<"enter the elelemnts of the array"<<endl;
+	for(int i=0;i<n;i++)
+	{
+		cin>>arr[i];
+	}
+	cout<<"Array before sorting"<<endl;
+	printarray(arr,n);
+	int low=0;
+	int high=n-1;
+	
+	//main code
+	mergesort ms;
+	ms.merge_sort(arr,low,high,n);
+	cout<<"Array after sorting "<<endl;
+	printarray(arr,n);
+	return 0;
+}
